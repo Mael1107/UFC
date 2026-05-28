@@ -53,3 +53,11 @@ void list_expenses(Expense expenses[], int total) {
         };
     }
 }
+
+Category string_to_category(const char *s) {
+    if (strcmp(s, "FOOD") == 0) return FOOD;
+    if (strcmp(s, "TRANSPORTATION") == 0) return TRANSPORTATION;
+    if (strcmp(s, "HOUSING") == 0) return HOUSING;
+    if (strcmp(s, "MATERIAL") == 0) return MATERIAL;
+    return OTHERS;
+}

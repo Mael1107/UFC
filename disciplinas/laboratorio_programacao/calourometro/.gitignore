@@ -1,0 +1,17 @@
+# Executável e objetos
+calourometro
+*.o
+*.exe
+
+# Pasta de build do VS Code
+build/
+
+# Dados do usuário
+expenses.json
+
+# Configurações do editor
+.vscode/
+
+# Temporários
+*.tmp
+*~

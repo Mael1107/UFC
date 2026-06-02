@@ -22,6 +22,6 @@ const char* category_to_string(Category c);
 Category string_to_category(const char *s);
 void add_expense(Expense expenses[], int *total);
 void list_expenses(Expense expenses[], int total);
-
+void delete_expense(Expense expenses[], int *total);
 
 #endif

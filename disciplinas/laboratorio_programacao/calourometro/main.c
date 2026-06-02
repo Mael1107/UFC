@@ -19,6 +19,7 @@ int main() {
         printf("2 - List expenses\n");
         printf("3 - Save to JSON file\n");
         printf("4 - Load from JSON file\n");
+        printf("5 - Delete Expense\n");
         printf("0 - Quit\n");
         scanf("%d", &option);
         while (getchar() != '\n');
@@ -30,6 +31,7 @@ int main() {
                 total = load_from_json(expenses);
                 printf("Reloaded %d expenses from file!\n", total);
                 break;
+            case 5: delete_expense(expenses, &total); break;
             case 0: printf("Bye!\n"); break;
             default: printf("Invalid Option! Try again.\n");
         }

@@ -5,6 +5,9 @@
 #include "persistence.h"
 #include <string.h>
 
+// Arquivo de serialização do formato original dos dados para JSON(string) e vice-versa
+
+
 void save_to_json(Expense expenses[], int total) {
     cJSON *array = cJSON_CreateArray();
 
@@ -20,7 +23,7 @@ void save_to_json(Expense expenses[], int total) {
     }
     char *text = cJSON_Print(array);
     
-    // Abrir arquivo
+    // Abrir arquivo e escrevê-lo
     FILE *f = fopen("expenses.json", "w");
     if (f == NULL) {
         printf("Error opening file!\n");
@@ -35,15 +38,16 @@ void save_to_json(Expense expenses[], int total) {
     printf("\nJSON saved with successfully!\n");
 }
 
+// Pega arquivo "expenses.json", se existir, e salva em um array
 int load_from_json(Expense expenses[]) {
-    FILE *f = fopen("expense.json", "r");
+    FILE *f = fopen("expenses.json", "r");
 
     if(f == NULL) {
         return 0;
     }
 
     fseek(f, 0, SEEK_END);
-    long size = ftell(f);
+    long size = ftell(f); 
     fseek(f, 0, SEEK_SET);
 
     char *buffer = malloc(size + 1);
@@ -51,14 +55,15 @@ int load_from_json(Expense expenses[]) {
     buffer[size] = '\0';
     fclose(f);
 
-    cJSON *array = cJSON_Parse(buffer);
+    cJSON *array = cJSON_Parse(buffer); 
     free(buffer);
 
-    if(array = NULL) {
+    if(array == NULL) {
         printf("Error parsing JSON!\n");
         return 0;
     }
 
+    // Desserializa (JSON pra formatação original do dado)
     int total = cJSON_GetArraySize(array);
     for(int i = 0; i < total; i++) {
         cJSON *obj = cJSON_GetArrayItem(array, i);
@@ -70,6 +75,7 @@ int load_from_json(Expense expenses[]) {
         strcpy(expenses[i].date, cJSON_GetObjectItem(obj, "date")->valuestring);
     }
 
+    // Limpar memória recursivamente
     cJSON_Delete(array);
     return total;
 }
